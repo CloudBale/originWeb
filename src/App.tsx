@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ArrowDown, ArrowRight, Braces, BriefcaseBusiness, Code2, Compass,
   Cpu, Gamepad2, Lightbulb, MapPin, Menu, MessageCircle, Rocket,
-  Sparkles, Target, Users, X, Zap,
+  PlayCircle, Sparkles, Target, Users, X, Zap,
 } from 'lucide-react'
+
+const wechatApplicationQr = `${import.meta.env.BASE_URL}images/wechat-application.jpg`
 
 const nav = [
   ['关于', 'about'], ['你将获得', 'benefits'], ['项目', 'projects'],
@@ -95,7 +97,7 @@ function App() {
           <span className="float-tag tag-c">PROJECT</span>
         </div>
         <div className="hero-status">
-          <div><b>≤ 10</b><span>本期名额</span></div>
+          <div><b>≤ 6</b><span>本期名额</span></div>
           <div><b>24H</b><span>开放空间</span></div>
           <div><b>NOW</b><span>招满为止</span></div>
         </div>
@@ -158,6 +160,11 @@ function App() {
           <p className="kicker">ABOUT THE MENTOR</p><h2>从企业一线，走进职业教育</h2>
           <p>计算机科学与技术专业背景，拥有6年以上企业开发与产品工作经验，先后从事游戏前端开发、VR开发、产品策划及AI产品管理工作。</p>
           <p>熟悉手游、VR/AR及商业项目开发流程，掌握Unity、UE、C#、Python及AI辅助编程等技术，希望帮助愿意行动的同学少走一些弯路。</p>
+          <a className="bilibili-link" href="https://space.bilibili.com/26688667?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
+            <PlayCircle />
+            <span><b>在 Bilibili 看我的视频教程</b><small>课程与技术内容持续更新</small></span>
+            <ArrowRight />
+          </a>
         </div>
       </section>
 
@@ -173,11 +180,11 @@ function App() {
         <div className="join-light" aria-hidden="true" />
         <div className="join-copy" data-reveal>
           <p className="kicker">START FROM HERE</p><h2>你的大学，<br />从这个原点重新出发。</h2>
-          <p>本期招募不超过10人，暂不设置截止日期，招满为止。</p>
+          <p>本期招募不超过6人，暂不设置截止日期，招满为止。</p>
           <button className="button primary" onClick={() => setQrOpen(true)}>申请加入 <ArrowRight /></button>
         </div>
         <div className="join-data" data-reveal>
-          <div><span>招募人数</span><b>≤ 10 人</b></div>
+          <div><span>招募人数</span><b>≤ 6 人</b></div>
           <div><span>工作室地点</span><b><MapPin />科学馆一楼 E 面<br />省重点实验室办公室</b></div>
           <div><span>通知方式</span><b><MessageCircle />通过报名信息联系</b></div>
         </div>
@@ -192,9 +199,8 @@ function App() {
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={() => setQrOpen(false)} aria-label="关闭"><X /></button>
         <span className="modal-kicker">JOIN ORIGIN LAB</span><h2>从原点出发</h2>
-        <div className="qr-placeholder"><div className="qr-grid" /><span>临时二维码</span></div>
-        <p>微信扫码进入招募咨询群<br /><small>正式二维码将在发布前替换</small></p>
-        <a className="button ghost full" href="#" onClick={(e) => e.preventDefault()}>外部报名表 · 待接入</a>
+        <div className="qr-code"><img src={wechatApplicationQr} alt="原点工作室微信报名二维码" /></div>
+        <p>使用微信扫码填写报名信息<br /><small>提交后，我们将通过报名信息与你联系</small></p>
       </div>
     </div>}
   </>
