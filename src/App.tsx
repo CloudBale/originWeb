@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  ArrowDown, ArrowRight, Braces, BriefcaseBusiness, Code2, Compass,
+  ArrowDown, ArrowRight, BriefcaseBusiness, Code2, Compass,
   Cpu, Gamepad2, Lightbulb, MapPin, Menu, MessageCircle, Rocket,
   PlayCircle, Sparkles, Target, Users, X, Zap,
 } from 'lucide-react'
 
 const wechatApplicationQr = `${import.meta.env.BASE_URL}images/wechat-application.jpg`
+const originLogo = `${import.meta.env.BASE_URL}images/origin-lab-logo-future-sigil-v5.png`
 
 const nav = [
   ['关于', 'about'], ['你将获得', 'benefits'], ['项目', 'projects'],
@@ -21,11 +22,18 @@ const benefits = [
   { icon: Rocket, no: '06', title: '提前入行', text: '了解岗位、协作与项目流程，让职业探索从大学第一年开始。' },
 ]
 
+const workCategories = [
+  ['all', '全部精选'], ['vr', '沉浸式 VR'], ['ar', 'AR × AI'], ['game', '游戏与交互'],
+] as const
+
 const projects = [
-  { n: 'PROJECT 01', title: '实时交互与游戏开发', tag: 'UNITY · UE · C#', tone: 'cyan' },
-  { n: 'PROJECT 02', title: 'VR / AR 空间体验', tag: 'XR · 3D · INTERACTION', tone: 'orange' },
-  { n: 'PROJECT 03', title: 'AI 创意应用', tag: 'PYTHON · AI · PRODUCT', tone: 'violet' },
-]
+  { title: 'VR射击肉鸽游戏 Demo', category: 'vr', categoryName: '沉浸式 VR', description: '融合射击、随机成长与空间交互的虚拟现实玩法原型。', tags: ['VR', '游戏原型', '交互设计'], duration: '01:58', image: 'vr-roguelike.jpg', bvid: 'BV1Sxhc6AEdj' },
+  { title: 'AR虚拟对话AI', category: 'ar', categoryName: 'AR × AI', description: '让虚拟角色进入真实空间，并尝试自然语言对话体验。', tags: ['AR', 'AI对话', '虚拟角色'], duration: '01:39', image: 'ar-ai-dialogue.jpg', bvid: 'BV18xhc6AE7x' },
+  { title: 'VR初中物理实验', category: 'vr', categoryName: '沉浸式 VR', description: '把抽象实验转化为可观察、可操作的沉浸式学习场景。', tags: ['VR', '教育应用', '仿真实验'], duration: '04:50', image: 'vr-physics.jpg', bvid: 'BV1Dxhc6AExE' },
+  { title: 'AR休闲音乐鲸鱼', category: 'ar', categoryName: 'AR × AI', description: '在现实环境中营造轻量、治愈的虚实融合互动体验。', tags: ['AR', '创意体验', '空间交互'], duration: '02:38', image: 'ar-whale.jpg', bvid: 'BV1Dxhc6AExg' },
+  { title: '跑酷游戏 · 勇往直前', category: 'game', categoryName: '游戏与交互', description: '围绕移动节奏、关卡挑战与即时反馈完成的跑酷作品。', tags: ['Unity', '跑酷', '关卡设计'], duration: '01:18', image: 'parkour.jpg', bvid: 'BV1Dxhc6AEvb' },
+  { title: '红绿灯驾驶模拟程序', category: 'game', categoryName: '游戏与交互', description: '结合交通规则和驾驶操作，完成可运行的模拟训练程序。', tags: ['模拟驾驶', '程序开发', '场景交互'], duration: '05:34', image: 'driving-simulator.jpg', bvid: 'BV18xhc6AE4w' },
+] as const
 
 function useReveal() {
   useEffect(() => {
@@ -41,6 +49,7 @@ function useReveal() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [qrOpen, setQrOpen] = useState(false)
+  const [workCategory, setWorkCategory] = useState<(typeof workCategories)[number][0]>('all')
   const heroRef = useRef<HTMLElement>(null)
   useReveal()
 
@@ -61,8 +70,8 @@ function App() {
   return <>
     <header className="topbar">
       <a className="brand" href="#top" aria-label="返回首页">
-        <span className="brand-dot" />
-        <span>ORIGIN <b>LAB</b></span>
+        <img className="brand-logo" src={originLogo} alt="" />
+        <span className="brand-name">ORIGIN <b>LAB</b><small>南昌科技职业大学 · 信息工程学院</small></span>
       </a>
       <nav className={menuOpen ? 'nav open' : 'nav'} aria-label="主要导航">
         {nav.map(([label, id]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>)}
@@ -78,7 +87,7 @@ function App() {
         <div className="hero-grid" aria-hidden="true" />
         <div className="orbit orbit-a" aria-hidden="true" /><div className="orbit orbit-b" aria-hidden="true" />
         <div className="hero-copy">
-          <div className="eyebrow"><span>2026</span> NEW MEMBER RECRUITMENT</div>
+          <div className="eyebrow"><span>2026</span> 信息工程学院 · 院内学生招募</div>
           <h1><span>原点</span><br />工作室</h1>
           <p className="slogan">只争朝夕<span className="blink">_</span></p>
           <p className="hero-intro">从兴趣出发，把想法做成作品。<br />在实践中积累能力，提前探索职业方向。</p>
@@ -88,6 +97,7 @@ function App() {
           </div>
         </div>
         <div className="coordinate" aria-hidden="true">
+          <img className="hero-logo" src={originLogo} alt="" />
           <div className="axis axis-x" /><div className="axis axis-y" />
           <div className="core"><span /><i /></div>
           <span className="coord-label label-x">CAREER / X</span>
@@ -138,26 +148,42 @@ function App() {
 
       <section className="section projects-section" id="projects">
         <header className="section-head" data-reveal>
-          <div><p className="kicker">SELECTED WORKS</p><h2>作品轨迹</h2></div>
-          <p>这里将陆续展示学生完成的项目、比赛作品与实践成果。</p>
+          <div><p className="kicker">SELECTED WORKS</p><h2>学生作品与实践项目</h2></div>
+          <p>从课程原型到真实项目，每一份作品，都是能力成长的记录。</p>
         </header>
-        <div className="project-grid">
-          {projects.map((p, i) => <article className={`project-card ${p.tone}`} key={p.title} data-reveal tabIndex={0}>
-            <div className="project-art"><div className="project-orb" /><Braces /></div>
-            <div className="project-info"><span>{p.n}</span><h3>{p.title}</h3><p>{p.tag}</p></div>
-            <button aria-label={`查看${p.title}`}><ArrowRight /></button>
-            {i === 0 && <span className="coming">资料整理中</span>}
-          </article>)}
+        <div className="work-toolbar" data-reveal>
+          <div className="work-filters" role="group" aria-label="筛选作品方向">
+            {workCategories.map(([value, label]) => <button key={value} className={workCategory === value ? 'active' : ''} aria-pressed={workCategory === value} onClick={() => setWorkCategory(value)}>{label}</button>)}
+          </div>
+          <span>6 SELECTED / 15 TOTAL</span>
         </div>
+        <div className="project-grid" key={workCategory}>
+          {projects.filter((p) => workCategory === 'all' || p.category === workCategory).map((p, i) => <a className={`project-card ${i === 0 ? 'featured' : ''}`} key={p.title} href={`https://www.bilibili.com/video/${p.bvid}/`} target="_blank" rel="noreferrer" aria-label={`在B站观看《${p.title}》`}>
+            <div className="project-art"><img src={`${import.meta.env.BASE_URL}images/works/${p.image}`} alt="" /><span className="video-duration">{p.duration}</span><span className="video-play"><PlayCircle /></span></div>
+            <div className="project-info"><span>{p.categoryName}</span><h3>{p.title}</h3><p>{p.description}</p><div className="project-tags">{p.tags.map((tag) => <b key={tag}>{tag}</b>)}</div></div>
+            <span className="project-link">BILIBILI <ArrowRight /></span>
+          </a>)}
+        </div>
+        <div className="all-works" data-reveal><p>这里展示的是部分代表作品，更多游戏、VR、AR与交互项目收录在完整合集中。</p><a href="https://space.bilibili.com/26688667/lists/8943382?type=season" target="_blank" rel="noreferrer">查看全部 15 个作品 <ArrowRight /></a></div>
       </section>
 
       <section className="section mentor-section">
         <div className="mentor-visual" data-reveal>
-          <div className="avatar-placeholder"><Cpu /><span>MENTOR<br />PROFILE</span></div>
+          <div className="mentor-profile-card">
+            <div className="profile-scan" aria-hidden="true" />
+            <div className="profile-code"><span>MENTOR / 001</span><i>ORIGIN LAB</i></div>
+            <div className="profile-name"><Cpu /><p><small>XIONG XUAN</small><b>熊旋</b></p></div>
+            <div className="profile-metrics">
+              <div><b>6+</b><span>企业一线经验 / 年</span></div>
+              <div><b>4</b><span>开发与产品角色</span></div>
+            </div>
+            <div className="profile-track"><span>GAME DEV</span><span>VR / AR</span><span>AI PRODUCT</span><span>EDUCATION</span></div>
+          </div>
           <div className="tech-tags"><span>UNITY</span><span>UNREAL</span><span>C#</span><span>PYTHON</span><span>AI</span></div>
         </div>
         <div className="mentor-copy" data-reveal>
           <p className="kicker">ABOUT THE MENTOR</p><h2>从企业一线，走进职业教育</h2>
+          <div className="mentor-identity"><b>熊旋</b><span>南昌科技职业大学 · 信息工程学院专业课教师</span></div>
           <p>计算机科学与技术专业背景，拥有6年以上企业开发与产品工作经验，先后从事游戏前端开发、VR开发、产品策划及AI产品管理工作。</p>
           <p>熟悉手游、VR/AR及商业项目开发流程，掌握Unity、UE、C#、Python及AI辅助编程等技术，希望帮助愿意行动的同学少走一些弯路。</p>
           <a className="bilibili-link" href="https://space.bilibili.com/26688667?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
@@ -191,7 +217,7 @@ function App() {
       </section>
     </main>
 
-    <footer><div className="brand"><span className="brand-dot" /><span>ORIGIN <b>LAB</b></span></div><p>原点工作室 · 只争朝夕</p><span>© 2026</span></footer>
+    <footer><div className="brand"><img className="brand-logo" src={originLogo} alt="原点工作室Logo" /><span>ORIGIN <b>LAB</b></span></div><p>南昌科技职业大学 · 信息工程学院<br />原点工作室 · 只争朝夕</p><span>© 2026</span></footer>
 
     <button className="mobile-cta" onClick={() => setQrOpen(true)}><Sparkles /> 申请加入</button>
 
