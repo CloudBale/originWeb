@@ -154,8 +154,8 @@ function App() {
 
       <section className="section directions-section" id="directions">
         <header className="section-head" data-reveal>
-          <div><p className="kicker">EXPLORATION FIELDS</p><h2>不只做 Unity，<br />也探索下一代数字创作</h2></div>
-          <p>实时交互是我们的技术基础，但不是能力边界。工作室将持续连接开发、AI 与内容表达。</p>
+          <div><p className="kicker">EXPLORATION FIELDS</p><h2>探索 AI 技术，<br />拓展数字创作边界</h2></div>
+          <p>以实时交互开发为基础，持续探索 AI 编程、智能应用与内容创作，让技术、创意和真实需求产生连接。</p>
         </header>
         <div className="direction-grid">
           {directions.map(({ icon: Icon, no, title, text, tags }) => <article className="direction-card" key={title} data-reveal>
