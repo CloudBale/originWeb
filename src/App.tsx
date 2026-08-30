@@ -9,7 +9,7 @@ const wechatApplicationQr = `${import.meta.env.BASE_URL}images/wechat-applicatio
 const originLogo = `${import.meta.env.BASE_URL}images/origin-lab-logo-future-sigil-v5.png`
 
 const nav = [
-  ['关于', 'about'], ['你将获得', 'benefits'], ['项目', 'projects'],
+  ['关于', 'about'], ['你将获得', 'benefits'], ['探索方向', 'directions'], ['项目', 'projects'],
   ['期待的你', 'requirements'], ['加入', 'join'],
 ]
 
@@ -20,6 +20,12 @@ const benefits = [
   { icon: Users, no: '04', title: '导师与同伴', text: '获得针对性指导，在稳定的小团队中彼此推动成长。' },
   { icon: Target, no: '05', title: '作品与交付', text: '不止于“学过”，逐步积累能够展示、运行和交付的成果。' },
   { icon: Rocket, no: '06', title: '提前入行', text: '了解岗位、协作与项目流程，让职业探索从大学第一年开始。' },
+]
+
+const directions = [
+  { icon: Gamepad2, no: '01', title: '实时交互与沉浸体验', text: '以 Unity、UE、C# 为技术基础，探索游戏开发、VR / AR、虚拟仿真与交互展示。', tags: ['UNITY', 'UNREAL', 'GAME DEV', 'VR / AR'] },
+  { icon: Code2, no: '02', title: 'AI 编程与智能应用', text: '学习使用 AI 辅助分析、编码、调试与交付，并尝试开发智能工具、AI 应用和自动化工作流。', tags: ['AI CODING', 'PYTHON', 'LLM APP', 'AUTOMATION'] },
+  { icon: Sparkles, no: '03', title: 'AI 内容创作与新媒体', text: '探索 AI 辅助选题、文案、图像、视频与栏目包装，理解从内容生产到发布复盘的完整流程。', tags: ['AI IMAGE', 'AI VIDEO', 'CONTENT', 'NEW MEDIA'] },
 ]
 
 const workCategories = [
@@ -144,6 +150,21 @@ function App() {
             <span>{String(i + 1).padStart(2, '0')}</span><i /><b>{x}</b>
           </div>)}
         </div>
+      </section>
+
+      <section className="section directions-section" id="directions">
+        <header className="section-head" data-reveal>
+          <div><p className="kicker">EXPLORATION FIELDS</p><h2>不只做 Unity，<br />也探索下一代数字创作</h2></div>
+          <p>实时交互是我们的技术基础，但不是能力边界。工作室将持续连接开发、AI 与内容表达。</p>
+        </header>
+        <div className="direction-grid">
+          {directions.map(({ icon: Icon, no, title, text, tags }) => <article className="direction-card" key={title} data-reveal>
+            <div className="direction-top"><span>{no}</span><Icon /></div>
+            <h3>{title}</h3><p>{text}</p>
+            <div className="direction-tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+          </article>)}
+        </div>
+        <div className="direction-note" data-reveal><Target /><p><b>基础可以从零开始，成长必须通过行动发生。</b><span>工作室不是付费培训班，也不是只签到不产出的普通社团。老师提供方向、资源与指导，成员需要为自己的学习、作品和团队任务负责。</span></p></div>
       </section>
 
       <section className="section projects-section" id="projects">
